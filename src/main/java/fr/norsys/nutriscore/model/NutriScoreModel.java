@@ -1,9 +1,7 @@
 package fr.norsys.nutriscore.model;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Observable;
 
 public class NutriScoreModel {
 

@@ -1,9 +1,8 @@
 package fr.norsys.nutriscore.controller;
 
 import fr.norsys.nutriscore.model.NutriScoreModel;
+import fr.norsys.nutriscore.model.ScoreLevel;
 import fr.norsys.nutriscore.service.RandomNumberRetriever;
-import fr.norsys.nutriscore.view.NutriScoreComponent;
-import fr.norsys.nutriscore.view.NutriScoreSlider;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -12,11 +11,11 @@ import java.io.IOException;
 
 public class NutriScoreController implements ChangeListener {
 
-    private NutriScoreModel nutriScoreModel;
-    private NutriScoreComponent nutriScoreComponent;
+    private final NutriScoreModel nutriScoreModel;
     RandomNumberRetriever randomNumberRetriever;
 
-    public NutriScoreController() {
+    public NutriScoreController(NutriScoreModel nutriScoreModel) {
+        this.nutriScoreModel = nutriScoreModel;
         randomNumberRetriever = new RandomNumberRetriever();
         try {
             randomNumberRetriever.init();
@@ -25,12 +24,8 @@ public class NutriScoreController implements ChangeListener {
         }
     }
 
-    public void setNutriScoreModel(NutriScoreModel nutriScoreModel) {
-        this.nutriScoreModel = nutriScoreModel;
-    }
-    
-    public void setNutriScoreComponent(NutriScoreComponent nutriScoreComponent) {
-        this.nutriScoreComponent = nutriScoreComponent;
+    public NutriScoreModel getModel() {
+        return nutriScoreModel;
     }
 
     @Override
@@ -39,10 +34,7 @@ public class NutriScoreController implements ChangeListener {
         if (!source.getValueIsAdjusting()) {
             int sliderValue = (int)source.getValue();
             System.out.println("Slider value: " + sliderValue);
-            //TODO fire event to update image
-
-            nutriScoreComponent.getImagePanel().updateImage(sliderValue);
-
+            nutriScoreModel.setScore(ScoreLevel.valueOf(sliderValue));
         }
     }
 }

@@ -13,12 +13,11 @@ public class ImagePanel extends JPanel {
 
     public static final String RESOURCES_FOLDER_IMAGES = "/images/";
     public static final List<String> IMAGE_NAMES = List.of("nutriscore-a.png", "nutriscore-b.png", "nutriscore-c.png", "nutriscore-d.png", "nutriscore-e.png");
+    public static final int DEFAULT_SCORE_LEVEL = 0;
 
-    private List<BufferedImage> bufferedImages = new ArrayList<BufferedImage>();
+    private final List<BufferedImage> bufferedImages = new ArrayList<>();
 
-    private List<ImageIcon> imageIcons = new ArrayList<ImageIcon>();
-
-    private final JLabel pictureLabel = new JLabel("test");
+    private final JLabel pictureLabel = new JLabel();
 
     public ImagePanel() {
 
@@ -30,11 +29,11 @@ public class ImagePanel extends JPanel {
         }
 
         add(pictureLabel);
+        updateImage(DEFAULT_SCORE_LEVEL);
     }
 
     private void loadImages() throws IOException {
 
-        // TODO put in enum level ?
         //TODO separates the nutriscore label from the rest of the images
         String imagePath = null;
 
@@ -42,8 +41,6 @@ public class ImagePanel extends JPanel {
             try {
                 imagePath = RESOURCES_FOLDER_IMAGES + imageName;
                 bufferedImages.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(RESOURCES_FOLDER_IMAGES + imageName), "Cannot find image in resources: " + imagePath)));
-                //TODO check delete ?
-                imageIcons.add(new ImageIcon(imagePath));
             } catch (IOException  e) {
                 throw new RuntimeException(e);
             }
@@ -54,7 +51,5 @@ public class ImagePanel extends JPanel {
         Image image = bufferedImages.get(index);
         pictureLabel.setIcon(new ImageIcon(image));
         repaint();
-        //pictureLabel.setIcon(imageIcons.get(index));
     }
-
 }

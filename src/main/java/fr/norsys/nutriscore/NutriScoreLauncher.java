@@ -3,8 +3,7 @@ package fr.norsys.nutriscore;
 import fr.norsys.nutriscore.controller.NutriScoreController;
 import fr.norsys.nutriscore.model.NutriScoreModel;
 import fr.norsys.nutriscore.service.RandomNumberRetriever;
-import fr.norsys.nutriscore.view.NutriScoreComponent;
-import fr.norsys.nutriscore.view.NutriScoreSlider;
+import fr.norsys.nutriscore.view.NutriScorePanel;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -16,12 +15,10 @@ public class NutriScoreLauncher {
 
         JFrame frame = new JFrame("MFI NUTRI-SCORE");
         NutriScoreModel nutriScoreModel = new NutriScoreModel();
-        NutriScoreController nutriScoreController = new NutriScoreController();
-        NutriScoreComponent nutriScoreComponent = new NutriScoreComponent(nutriScoreController);
-        nutriScoreController.setNutriScoreModel(nutriScoreModel);
-        nutriScoreController.setNutriScoreComponent(nutriScoreComponent);
+        NutriScoreController nutriScoreController = new NutriScoreController(nutriScoreModel);
+        NutriScorePanel nutriScorePanel = new NutriScorePanel(nutriScoreController);
 
-        frame.add(nutriScoreComponent);
+        frame.add(nutriScorePanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

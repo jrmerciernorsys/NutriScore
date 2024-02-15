@@ -1,7 +1,6 @@
 package fr.norsys.nutriscore.view;
 
 import fr.norsys.nutriscore.controller.NutriScoreController;
-import fr.norsys.nutriscore.controller.NutriScoreSliderChangeListener;
 import fr.norsys.nutriscore.model.ScoreLevel;
 
 import javax.swing.*;
