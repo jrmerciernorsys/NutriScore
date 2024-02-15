@@ -2,11 +2,9 @@ package fr.norsys.nutriscore;
 
 import fr.norsys.nutriscore.controller.NutriScoreController;
 import fr.norsys.nutriscore.model.NutriScoreModel;
-import fr.norsys.nutriscore.service.RandomNumberRetriever;
 import fr.norsys.nutriscore.view.NutriScorePanel;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class NutriScoreLauncher {
 
@@ -26,32 +24,7 @@ public class NutriScoreLauncher {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        //testRandom();
-
+        nutriScoreController.startRandomNumberUpdater();
     }
 
-    //TODO delete
-    private static void testRandom() {
-        RandomNumberRetriever randomNumberRetriever = new RandomNumberRetriever();
-        try {
-            randomNumberRetriever.init();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //TODO change that
-        int testLoopNb = 2;
-        for (int i = 0; i < testLoopNb; i++) {
-
-            try {
-                System.out.println(randomNumberRetriever.retrieveRandomNumberFromUrl());
-                Thread.sleep(1000);
-
-                //TODO Create a JSlider in a panel that will receive the value of the random number
-
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }

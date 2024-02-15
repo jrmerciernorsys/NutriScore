@@ -10,13 +10,10 @@ import java.beans.PropertyChangeListener;
 
 public class NutriScorePanel extends JPanel implements PropertyChangeListener {
 
-    private final NutriScoreController nutriScoreController;
-
     private final ImagePanel imagePanel;
     private final JSlider slider;
 
     public NutriScorePanel(NutriScoreController nutriScoreController) {
-        this.nutriScoreController = nutriScoreController;
         nutriScoreController.getModel().addPropertyChangeListener(this);
 
         imagePanel = new ImagePanel();
@@ -24,6 +21,7 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
         slider.setPaintTicks(false);
         slider.addChangeListener(nutriScoreController);
 
+        //TODO 2 properties change listener ?
         nutriScoreController.getModel().addPropertyChangeListener(evt -> {
             ScoreLevel score = (ScoreLevel) evt.getNewValue();
             slider.setValue(score.ordinal());

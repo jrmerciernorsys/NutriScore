@@ -40,6 +40,7 @@ public class ImagePanel extends JPanel {
     private void loadImages() throws IOException {
 
         //TODO separates the nutriscore label from the rest of the images
+        // and use paint instead of imageIcon
         String imagePath = null;
 
         for (String imageName : IMAGE_NAMES) {
