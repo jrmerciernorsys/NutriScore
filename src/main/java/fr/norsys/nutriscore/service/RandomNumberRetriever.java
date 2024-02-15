@@ -29,29 +29,25 @@ public class RandomNumberRetriever {
     }
 
     public int retrieveRandomNumberFromUrl() throws IOException {
-        // TODO
         System.out.println("calling connect");
         httpConnection.connect();
-
-        int responseCode = httpConnection.getResponseCode();
-        String responseMessage = httpConnection.getResponseMessage();
-        //Get response content payload
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(RANDOM_NUMBER_URL))
                     .GET()
                     .build();
-            //TODO
             HttpClient client = HttpClient.newHttpClient();
 
-            //TODO that can be blocking; be sure to call it not in the EDT
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String responseBody = response.body();
+            String responseBody = response.body().trim();
             System.out.println("get random number response: " + responseBody);
-            return Integer.parseInt(responseBody.trim());
+            return Integer.parseInt(responseBody);
         } catch (URISyntaxException | InterruptedException e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            httpConnection.disconnect();
         }
     };
 
