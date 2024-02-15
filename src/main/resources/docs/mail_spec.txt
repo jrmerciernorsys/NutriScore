@@ -1,0 +1,15 @@
+MFI NUTRI-SCORE
+
+Nous vous proposons de réaliser un composant Java de type slider "nutri-score" inspiré de l'image ci-dessous.
+
+Afin de montrer le composant en action, faire un programme "main" de démo qui instancie le composant dans une fenêtre avec en dessous un indicateur de la valeur sélectionnée mis à jour dynamiquement. Le programme va requêter en HTTP le site https://www.random.org toutes les 10 secondes un entier compris entre 0 et 4 et mettre à jour le composant en fonction de l'entier reçu (0=A, 1= B, etc).
+
+Le travail réalisé sera livré sur un dépôt Github public. Le projet sera documenté et accompagné de scripts permettant la construction du jar final.
+
+Pour la génération du nombre aléatoire entre 1 et 4 à requêter toutes les 10 secondes  il ya parmi d'autres possibilités ces API:
+
+https://www.random.org/integers/?num=1&min=1&max=4&col=1&base=10&format=plain&rnd=new
+
+OU
+
+https://number.academy/generadores/servicio-json/?desde=1&hasta=4&numero=1&repeticion=0
