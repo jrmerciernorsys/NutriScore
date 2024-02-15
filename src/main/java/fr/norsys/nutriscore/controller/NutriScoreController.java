@@ -32,7 +32,7 @@ public class NutriScoreController implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         JSlider source = (JSlider)e.getSource();
         if (!source.getValueIsAdjusting()) {
-            int sliderValue = (int)source.getValue();
+            int sliderValue = source.getValue();
             System.out.println("Slider value: " + sliderValue);
             nutriScoreModel.setScore(ScoreLevel.valueOf(sliderValue));
         }

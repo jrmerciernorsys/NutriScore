@@ -47,7 +47,7 @@ public class RandomNumberRetriever {
         finally {
             httpConnection.disconnect();
         }
-    };
+    }
 
 
 }

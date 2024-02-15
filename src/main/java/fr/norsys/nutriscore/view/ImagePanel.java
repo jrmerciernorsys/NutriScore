@@ -19,6 +19,8 @@ public class ImagePanel extends JPanel {
 
     private final JLabel pictureLabel = new JLabel();
 
+    private final int imageWidth;
+
     public ImagePanel() {
 
         //Load the 5 images from resources/images
@@ -30,6 +32,9 @@ public class ImagePanel extends JPanel {
 
         add(pictureLabel);
         updateImage(DEFAULT_SCORE_LEVEL);
+
+        //Init image width
+        imageWidth = new ImageIcon(bufferedImages.get(0)).getIconWidth();
     }
 
     private void loadImages() throws IOException {
@@ -51,5 +56,9 @@ public class ImagePanel extends JPanel {
         Image image = bufferedImages.get(index);
         pictureLabel.setIcon(new ImageIcon(image));
         repaint();
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
     }
 }
