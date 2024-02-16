@@ -13,6 +13,11 @@ A timer also gets a random value from an API (https://www.random.org/) and updat
 ### Architecture
 The project implements the MVC pattern.
 
+### Swing Implementation choices
+The nutriscore is rendered inside a paintComponent that will display different images:
+the title "nutriscore" on top, then all the letters corresponding to the score.
+And finally, the image for the selected element.
+
 ### Compilation
 The project uses maven to generate the jar.
 
