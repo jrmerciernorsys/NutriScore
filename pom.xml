@@ -7,6 +7,7 @@
     <groupId>fr.norsys</groupId>
     <artifactId>NutriScore</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -14,4 +15,50 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/images</directory>
+                <targetPath>images</targetPath>
+                <includes>
+                    <include>**/*.png</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>scripts</directory>
+                <targetPath>../scripts</targetPath>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>.</directory>
+                <targetPath>.</targetPath>
+                <includes>
+                    <include>README.md</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/docs</directory>
+                <excludes>
+                    <exclude>mail_spec.txt</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>fr.norsys.nutriscore.NutriScoreLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
