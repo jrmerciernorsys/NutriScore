@@ -8,6 +8,9 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Panel that contains the nutriscore image and the slider to change the score
+ */
 public class NutriScorePanel extends JPanel implements PropertyChangeListener {
 
     private final ImagePanel imagePanel;
@@ -16,23 +19,24 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
     public NutriScorePanel(NutriScoreController nutriScoreController) {
         nutriScoreController.getModel().addPropertyChangeListener(this);
 
-        imagePanel = new ImagePanel();
-        slider = new JSlider(0, ScoreLevel.values().length - 1, ImagePanel.DEFAULT_SCORE_LEVEL);
-        slider.setPaintTicks(false);
-        slider.addChangeListener(nutriScoreController);
-
-        //TODO 2 properties change listener ?
-        nutriScoreController.getModel().addPropertyChangeListener(evt -> {
-            ScoreLevel score = (ScoreLevel) evt.getNewValue();
-            slider.setValue(score.ordinal());
-        });
-
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        imagePanel = new ImagePanel();
         add(imagePanel, BorderLayout.NORTH);
 
-        //Panel that contains the slider, to center it
+        slider = new JSlider(0, ScoreLevel.values().length - 1, ImagePanel.DEFAULT_SCORE_LEVEL);
+        slider.addChangeListener(nutriScoreController);
+        JPanel sliderPanel = createSliderPanel();
+        add(sliderPanel, BorderLayout.SOUTH);
+
+        setSliderSizeToMachOneScoreImage();
+    }
+
+    /**
+     * @return a panel that contains the slider, to center it
+     */
+    private JPanel createSliderPanel() {
         JPanel sliderPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -43,13 +47,10 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
         gbc.gridx = 2;
         sliderPanel.add(Box.createHorizontalBox(), gbc);
         sliderPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(sliderPanel);
-
-        setSliderSize();
-
+        return sliderPanel;
     }
 
-    private void setSliderSize() {
+    private void setSliderSizeToMachOneScoreImage() {
         int imagePanelWidth = imagePanel.getImageWidth();
         int scoreImageWidth = imagePanelWidth / ScoreLevel.values().length;
         Dimension sliderSize = new Dimension(scoreImageWidth * (ScoreLevel.values().length - 1), 50);
@@ -58,7 +59,9 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        //Model has fired us because score changed
         ScoreLevel score = (ScoreLevel) evt.getNewValue();
+        slider.setValue(score.ordinal());
         imagePanel.updateImage(score.ordinal());
     }
 }

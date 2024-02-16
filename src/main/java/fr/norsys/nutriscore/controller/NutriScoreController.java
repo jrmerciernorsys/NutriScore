@@ -12,6 +12,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is responsible for handling the user input and updating the model accordingly.
+ * It also starts a timer to update the model with a random number from an API (using <code>RandomNumberRetriever</code>).
+ * Updates the model when the slider value changes or when new value from API.
+ */
 public class NutriScoreController implements ChangeListener {
 
     public static final int API_CALL_DELAY = 10000;
@@ -27,21 +32,15 @@ public class NutriScoreController implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        int sliderValue = -1;
         if (!(e.getSource() instanceof JSlider source)) {
             throw new IllegalArgumentException("Event source is not a JSlider");
         }
-        System.out.println("controller: change event from slider");
-        if (!source.getValueIsAdjusting()) {
-            sliderValue = source.getValue();
-            System.out.println("Slider value: " + sliderValue);
-            nutriScoreModel.setScore(ScoreLevel.valueOf(sliderValue));
-        }
+        nutriScoreModel.setScore(ScoreLevel.valueOf(source.getValue()));
     }
 
     public void startRandomNumberUpdater() {
         Runnable randomNumberRetrieverTask = () -> {
-            System.out.println("Calling random API");
+            System.out.println(" --- Calling random API --- ");
             try {
                 int randomNumber = RandomNumberRetriever.retrieveRandomNumberFromUrl();
                 System.out.println("Random number: " + randomNumber);

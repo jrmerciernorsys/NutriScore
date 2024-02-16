@@ -20,6 +20,7 @@ public class ImagePanel extends JPanel {
     private final JLabel pictureLabel = new JLabel();
 
     private final int imageWidth;
+    private int actualImageIndex = -1;
 
     public ImagePanel() {
 
@@ -39,13 +40,9 @@ public class ImagePanel extends JPanel {
 
     private void loadImages() throws IOException {
 
-        //TODO separates the nutriscore label from the rest of the images
-        // and use paint instead of imageIcon
-        String imagePath = null;
-
         for (String imageName : IMAGE_NAMES) {
             try {
-                imagePath = RESOURCES_FOLDER_IMAGES + imageName;
+                String imagePath = RESOURCES_FOLDER_IMAGES + imageName;
                 bufferedImages.add(ImageIO.read(Objects.requireNonNull(getClass().getResource(RESOURCES_FOLDER_IMAGES + imageName), "Cannot find image in resources: " + imagePath)));
             } catch (IOException  e) {
                 throw new RuntimeException(e);
@@ -54,6 +51,10 @@ public class ImagePanel extends JPanel {
     }
 
     public void updateImage(int index) {
+        if (actualImageIndex == index) {
+            return;
+        }
+        actualImageIndex = index;
         Image image = bufferedImages.get(index);
         pictureLabel.setIcon(new ImageIcon(image));
         repaint();
