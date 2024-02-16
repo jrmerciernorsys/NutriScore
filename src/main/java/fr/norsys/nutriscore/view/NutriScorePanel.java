@@ -27,10 +27,10 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
 
         slider = new JSlider(0, ScoreLevel.values().length - 1, ImagePanel.DEFAULT_SCORE_LEVEL);
         slider.addChangeListener(nutriScoreController);
+        setSliderSizeToMatchDisplayedScoreImages();
+
         JPanel sliderPanel = createSliderPanel();
         add(sliderPanel, BorderLayout.SOUTH);
-
-        setSliderSizeToMachOneScoreImage();
     }
 
     /**
@@ -46,14 +46,17 @@ public class NutriScorePanel extends JPanel implements PropertyChangeListener {
         sliderPanel.add(slider, gbc);
         gbc.gridx = 2;
         sliderPanel.add(Box.createHorizontalBox(), gbc);
-        sliderPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        int borderThickness = 10;
+        sliderPanel.setBorder(BorderFactory.createEmptyBorder(borderThickness, borderThickness, borderThickness, borderThickness));
         return sliderPanel;
     }
 
-    private void setSliderSizeToMachOneScoreImage() {
-        int imagePanelWidth = imagePanel.getImageWidth();
-        int scoreImageWidth = imagePanelWidth / ScoreLevel.values().length;
-        Dimension sliderSize = new Dimension(scoreImageWidth * (ScoreLevel.values().length - 1), 50);
+    private void setSliderSizeToMatchDisplayedScoreImages() {
+        //Start of slider is under the middle of the first score element and ends at the middle at the last one
+        int sliderWidth = ImagePanel.SCORE_UNSELECTED_IMAGE_WIDTH * (ImagePanel.SCORE_ELEMENT_NUMBER - 1);
+        Dimension sliderSize = new Dimension(sliderWidth, 50);
+        slider.setPreferredSize(sliderSize);
+        slider.setMinimumSize(sliderSize);
         slider.setSize(sliderSize);
     }
 

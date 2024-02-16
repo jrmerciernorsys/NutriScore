@@ -10,6 +10,9 @@ A timer also gets a random value from an API (https://www.random.org/) and updat
 
 ## Development
 
+### Architecture
+The project implements the MVC pattern.
+
 ### Compilation
 The project uses maven to generate the jar.
 
