@@ -39,10 +39,11 @@
                 </includes>
             </resource>
             <resource>
-                <directory>src/main/resources/docs</directory>
-                <excludes>
-                    <exclude>mail_spec.txt</exclude>
-                </excludes>
+                <directory>docs</directory>
+                <targetPath>docs</targetPath>
+                <includes>
+                    <include>*.png</include>
+                </includes>
             </resource>
         </resources>
         <plugins>
